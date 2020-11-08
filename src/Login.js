@@ -4,12 +4,28 @@ import "./Login.css"
 
 function Login() {
     const [email, setEmail] = useState('');
+    const history = useHistory();
     const [password, setPassword] = useState('');
     const SignIn = e => {
         e.preventDefault()
+        auth
+            .signInWithEmailAndPassword(email, password)
+            .then(auth => {
+                history.push('/')
+            })
+            .catch(error => alert(error.message))
     }
     const register = e =>{
         e.preventDefault()
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((auth) => {
+                // it successfully created a new user with email and password
+                if (auth) {
+                    history.push('/')
+                }
+            })
+            .catch(error => alert(error.message))
     }
     return (
         
